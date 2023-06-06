@@ -1,6 +1,6 @@
 namespace TextMemento;
 
-public class TextEditor
+public class TextEditor: ICateraker
 {
     private TextWindow Window;
     private Stack<TextWindowSnapshot> UndoMemento;
@@ -9,16 +9,17 @@ public class TextEditor
     public TextEditor(TextWindow window) {
         this.Window = window;
         this.UndoMemento = new Stack<TextWindowSnapshot>();
-        UndoMemento.Push(Window.CreateSnapshot());
         this.DoMemento = new Stack<TextWindowSnapshot>();
     }
 
     public void Write(String text)
     {
+        Snapshot();
         this.Window.AddText(text);
+        DoMemento.Clear();
     }
 
-    public void Snapshot()
+    private void Snapshot()
     {
         UndoMemento.Push(Window.CreateSnapshot());
     }
@@ -30,17 +31,13 @@ public class TextEditor
             DoMemento.Push(Window.CreateSnapshot());
             Window.SetState(UndoMemento.Pop().Restore());
         }
-        else
-        {
-            Window.SetState(new TextWindow());
-        }
     }
 
     public void Do()
     {
         if (DoMemento.Count != 0)
         {
-            UndoMemento.Push(Window.CreateSnapshot());
+            Snapshot();
             Window.SetState(DoMemento.Pop().Restore());
         }
         else

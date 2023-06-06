@@ -28,4 +28,9 @@ public class TextWindow: IOriginator<TextWindow, TextWindowSnapshot>
     {
         return CurrentText.ToString();
     }
+
+    public override string ToString()
+    {
+        return "TextWindow : " + CurrentText.ToString();
+    }
 }

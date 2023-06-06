@@ -3,7 +3,6 @@
 using TextMemento;
 
 Console.WriteLine("Welcome to the memento text editor !");
-Console.WriteLine("- To snapshot, type 'Snapshot'.");
 Console.WriteLine("- To quit type 'Exit'");
 Console.WriteLine("- To undo type 'Undo'");
 Console.WriteLine("- To redo type 'Do'");
@@ -18,9 +17,6 @@ while (input != "Exit")
     switch (input)
     {
         case "Exit": continue;
-        case "Snapshot": editor.Snapshot();
-            Console.WriteLine("Snapshot !");
-            break;
         case "Do": editor.Do();
             break;
         case "Undo": editor.Undo();
